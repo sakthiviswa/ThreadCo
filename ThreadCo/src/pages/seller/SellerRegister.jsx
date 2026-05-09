@@ -1,9 +1,19 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
+import { Check, BadgeCheck, Users, Clock, Headphones, RefreshCw, BarChart2 } from 'lucide-react'
 import './SellerRegister.css'
 
 const STEPS = ['Basic Info', 'Business Details', 'Bank Account', 'Done!']
+
+const PERKS = [
+  { Icon: BadgeCheck, label: 'Zero listing fees' },
+  { Icon: Users, label: 'Reach crores of buyers' },
+  { Icon: Clock, label: 'Payments in 7 days' },
+  { Icon: Headphones, label: 'Free seller support' },
+  { Icon: RefreshCw, label: 'Easy returns management' },
+  { Icon: BarChart2, label: 'Powerful analytics dashboard' },
+]
 
 export default function SellerRegister() {
   const { login, toast } = useApp()
@@ -12,7 +22,7 @@ export default function SellerRegister() {
   const [form, setForm] = useState({
     name: '', email: '', phone: '', password: '',
     storeName: '', gst: '', category: '', address: '', city: '', state: '', pincode: '',
-    acNo: '', ifsc: '', acName: '', bank: ''
+    acNo: '', ifsc: '', acName: '', bank: '',
   })
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
@@ -32,8 +42,11 @@ export default function SellerRegister() {
           <h1>Start Selling on ThreadCo</h1>
           <p>Join over 5,000 sellers reaching millions of buyers across India.</p>
           <ul className="sr-perks">
-            {['Zero listing fees', 'Reach crores of buyers', 'Payments in 7 days', 'Free seller support', 'Easy returns management', 'Powerful analytics dashboard'].map(p => (
-              <li key={p}> {p}</li>
+            {PERKS.map(({ Icon, label }) => (
+              <li key={label}>
+                <Icon size={16} strokeWidth={1.8} style={{ marginRight: 8, flexShrink: 0 }} />
+                {label}
+              </li>
             ))}
           </ul>
         </div>
@@ -43,7 +56,9 @@ export default function SellerRegister() {
           <div className="sr-steps">
             {STEPS.map((s, i) => (
               <div key={s} className={`sr-step ${i <= step ? 'active' : ''}`}>
-                <div className="sr-step-dot">{i < step ? '✓' : i + 1}</div>
+                <div className="sr-step-dot">
+                  {i < step ? <Check size={14} /> : i + 1}
+                </div>
                 <span>{s}</span>
               </div>
             ))}
@@ -64,10 +79,11 @@ export default function SellerRegister() {
               <h2>Business Details</h2>
               <div className="field"><label>Store / Brand Name *</label><input value={form.storeName} onChange={e => set('storeName', e.target.value)} placeholder="e.g. KartikFashions" /></div>
               <div className="field"><label>GST Number (optional)</label><input value={form.gst} onChange={e => set('gst', e.target.value)} placeholder="29ABCDE1234F1Z5" /></div>
-              <div className="field"><label>Primary Category</label>
+              <div className="field">
+                <label>Primary Category</label>
                 <select value={form.category} onChange={e => set('category', e.target.value)}>
                   <option value="">Select main category</option>
-                  {["Men's Wear","Women's Wear","Kids","Ethnic Wear","Sports","Winter Wear","Formal Wear","Casual Wear"].map(c => <option key={c}>{c}</option>)}
+                  {["Men's Wear", "Women's Wear", "Kids", "Ethnic Wear", "Sports", "Winter Wear", "Formal Wear", "Casual Wear"].map(c => <option key={c}>{c}</option>)}
                 </select>
               </div>
               <div className="field"><label>Business Address</label><input value={form.address} onChange={e => set('address', e.target.value)} placeholder="Street address" /></div>
@@ -83,10 +99,11 @@ export default function SellerRegister() {
             <div className="sr-step-content">
               <h2>Bank Account</h2>
               <p className="sr-hint">This is where we'll transfer your earnings.</p>
-              <div className="field"><label>Bank Name</label>
+              <div className="field">
+                <label>Bank Name</label>
                 <select value={form.bank} onChange={e => set('bank', e.target.value)}>
                   <option value="">Select bank</option>
-                  {['HDFC Bank','SBI','ICICI Bank','Axis Bank','Kotak Mahindra','PNB','Canara Bank','Bank of Baroda'].map(b => <option key={b}>{b}</option>)}
+                  {['HDFC Bank', 'SBI', 'ICICI Bank', 'Axis Bank', 'Kotak Mahindra', 'PNB', 'Canara Bank', 'Bank of Baroda'].map(b => <option key={b}>{b}</option>)}
                 </select>
               </div>
               <div className="field"><label>Account Number *</label><input value={form.acNo} onChange={e => set('acNo', e.target.value)} placeholder="Enter account number" /></div>
@@ -97,17 +114,21 @@ export default function SellerRegister() {
 
           {step === 3 && (
             <div className="sr-success">
-              <div className="sr-success-icon">🎉</div>
+              <div className="sr-success-icon">
+                <BadgeCheck size={56} color="#10b981" strokeWidth={1.5} />
+              </div>
               <h2>You're All Set!</h2>
               <p>Your seller account has been created. Start listing your products and reach millions of buyers.</p>
-              <button className="btn btn-accent btn-lg" onClick={() => navigate('/seller')}>Go to Seller Dashboard →</button>
+              <button className="btn btn-accent btn-lg" onClick={() => navigate('/seller')}>
+                Go to Seller Dashboard →
+              </button>
             </div>
           )}
 
           {step < 3 && (
             <div className="sr-nav">
               {step > 0 && <button className="btn btn-outline" onClick={() => setStep(s => s - 1)}>← Back</button>}
-              <button className="btn btn-primary btn-lg" style={{marginLeft:'auto'}} onClick={next}>
+              <button className="btn btn-primary btn-lg" style={{ marginLeft: 'auto' }} onClick={next}>
                 {step === 2 ? 'Create Account →' : 'Continue →'}
               </button>
             </div>
@@ -116,4 +137,4 @@ export default function SellerRegister() {
       </div>
     </div>
   )
-}   
+}

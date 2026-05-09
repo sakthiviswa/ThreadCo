@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PRODUCTS } from '../../data/products'
 import { useApp } from '../../context/AppContext'
+import { Plus, Star, Trash2 } from 'lucide-react'
 import './SellerProducts.css'
 
 export default function SellerProducts() {
@@ -11,7 +12,12 @@ export default function SellerProducts() {
 
   const filtered = PRODUCTS
     .filter(p => p.name.toLowerCase().includes(search.toLowerCase()))
-    .filter(p => filter === 'all' ? true : filter === 'low' ? p.stock < 15 : filter === 'out' ? p.stock === 0 : true)
+    .filter(p =>
+      filter === 'all' ? true
+      : filter === 'low' ? p.stock < 15
+      : filter === 'out' ? p.stock === 0
+      : true
+    )
 
   return (
     <div className="seller-products-page">
@@ -21,20 +27,29 @@ export default function SellerProducts() {
             <h1>My Products</h1>
             <p>Manage your product listings</p>
           </div>
-          <Link to="/seller/add-product" className="btn btn-accent">+ Add Product</Link>
+          <Link to="/seller/add-product" className="btn btn-accent">
+            <Plus size={16} style={{ marginRight: 6 }} />
+            Add Product
+          </Link>
         </div>
 
         <div className="card">
           <div className="sp-controls">
             <input
               className="sp-search"
-              placeholder="🔍 Search products..."
+              placeholder="Search products..."
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
             <div className="sp-filters">
-              {[['all','All'],['low','Low Stock'],['out','Out of Stock']].map(([v,l]) => (
-                <button key={v} className={`filter-pill ${filter === v ? 'active' : ''}`} onClick={() => setFilter(v)}>{l}</button>
+              {[['all', 'All'], ['low', 'Low Stock'], ['out', 'Out of Stock']].map(([v, l]) => (
+                <button
+                  key={v}
+                  className={`filter-pill ${filter === v ? 'active' : ''}`}
+                  onClick={() => setFilter(v)}
+                >
+                  {l}
+                </button>
               ))}
             </div>
           </div>
@@ -44,14 +59,9 @@ export default function SellerProducts() {
               <thead>
                 <tr>
                   <th><input type="checkbox" /></th>
-                  <th>Product</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>MRP</th>
-                  <th>Discount</th>
-                  <th>Stock</th>
-                  <th>Rating</th>
-                  <th>Actions</th>
+                  <th>Product</th><th>Category</th><th>Price</th>
+                  <th>MRP</th><th>Discount</th><th>Stock</th>
+                  <th>Rating</th><th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,19 +81,29 @@ export default function SellerProducts() {
                       </td>
                       <td><span className="badge badge-gray">{p.category}</span></td>
                       <td><strong>₹{p.price.toLocaleString()}</strong></td>
-                      <td><span style={{textDecoration:'line-through',color:'var(--light)'}}>₹{p.mrp.toLocaleString()}</span></td>
+                      <td><span style={{ textDecoration: 'line-through', color: 'var(--light)' }}>₹{p.mrp.toLocaleString()}</span></td>
                       <td><span className="badge badge-green">{disc}%</span></td>
                       <td>
                         <span className={`badge ${p.stock > 20 ? 'badge-green' : p.stock > 5 ? 'badge-yellow' : 'badge-red'}`}>
                           {p.stock}
                         </span>
                       </td>
-                      <td>{p.rating} <span style={{color:'var(--light)',fontSize:12}}>({p.reviews})</span></td>
+                      <td>
+                        <Star size={12} style={{ color: '#f59e0b', fill: '#f59e0b', verticalAlign: 'middle', marginRight: 3 }} />
+                        {p.rating}
+                        <span style={{ color: 'var(--light)', fontSize: 12 }}> ({p.reviews})</span>
+                      </td>
                       <td>
                         <div className="sp-actions">
                           <Link to={`/seller/edit-product/${p.id}`} className="btn btn-outline btn-sm">Edit</Link>
                           <Link to={`/product/${p.id}`} className="btn btn-ghost btn-sm">View</Link>
-                          <button className="btn btn-ghost btn-sm" style={{color:'var(--red)'}} onClick={() => toast('Product deleted', 'error')}>Del</button>
+                          <button
+                            className="btn btn-ghost btn-sm"
+                            style={{ color: 'var(--red)' }}
+                            onClick={() => toast('Product deleted', 'error')}
+                          >
+                            <Trash2 size={14} />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -94,9 +114,7 @@ export default function SellerProducts() {
           </div>
 
           {filtered.length === 0 && (
-            <div className="sp-empty">
-              <p>No products found</p>
-            </div>
+            <div className="sp-empty"><p>No products found</p></div>
           )}
         </div>
       </div>

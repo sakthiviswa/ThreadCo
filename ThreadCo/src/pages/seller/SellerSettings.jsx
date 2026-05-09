@@ -1,5 +1,17 @@
 import React, { useState } from 'react'
 import { useApp } from '../../context/AppContext'
+import {
+  Store,
+  Bell,
+  Shield,
+  Truck,
+  Upload,
+  ShoppingCart,
+  AlertTriangle,
+  Wallet,
+  MessageSquare,
+  Megaphone,
+} from 'lucide-react'
 import './SellerSettings.css'
 
 export default function SellerSettings() {
@@ -14,22 +26,50 @@ export default function SellerSettings() {
     city: 'Bengaluru',
     state: 'Karnataka',
     pincode: '560001',
-    bio: 'Quality fashion for everyone. We specialize in men\'s formal and casual wear.',
+    bio: "Quality fashion for everyone. We specialize in men's formal and casual wear.",
   })
-  const [notifs, setNotifs] = useState({ newOrder: true, lowStock: true, payment: true, review: false, promo: false })
+  const [notifs, setNotifs] = useState({
+    newOrder: true,
+    lowStock: true,
+    payment: true,
+    review: false,
+    promo: false,
+  })
+
   const set = (k, v) => setProfile(p => ({ ...p, [k]: v }))
-  const setN = (k) => setNotifs(n => ({ ...n, [k]: !n[k] })  )
+  const setN = (k) => setNotifs(n => ({ ...n, [k]: !n[k] }))
+
+  const NAV_ITEMS = [
+    { label: 'Store Profile', Icon: Store, href: '#section-0' },
+    { label: 'Notifications', Icon: Bell, href: '#section-1' },
+    { label: 'Security', Icon: Shield, href: '#section-2' },
+    { label: 'Shipping', Icon: Truck, href: '#section-3' },
+  ]
+
+  const NOTIF_ITEMS = [
+    { key: 'newOrder', Icon: ShoppingCart, title: 'New Order Received', sub: 'Get notified when a customer places an order' },
+    { key: 'lowStock', Icon: AlertTriangle, title: 'Low Stock Alert', sub: 'Alert when a product has fewer than 10 items' },
+    { key: 'payment', Icon: Wallet, title: 'Payment Settled', sub: 'Notify when payment is transferred to your account' },
+    { key: 'review', Icon: MessageSquare, title: 'New Review Posted', sub: 'When a buyer leaves a review on your product' },
+    { key: 'promo', Icon: Megaphone, title: 'Promotional Updates', sub: 'ThreadCo platform news and offers' },
+  ]
 
   return (
     <div className="settings-page">
       <div className="container">
-        <div className="page-header"><h1>Store Settings</h1><p>Manage your seller account</p></div>
+        <div className="page-header">
+          <h1>Store Settings</h1>
+          <p>Manage your seller account</p>
+        </div>
 
         <div className="settings-layout">
           {/* Nav */}
           <nav className="settings-nav card">
-            {['Store Profile','Notifications','Security','Shipping'].map((item, i) => (
-              <a key={item} href={`#section-${i}`} className="snav-item">{item}</a>
+            {NAV_ITEMS.map(({ label, Icon, href }) => (
+              <a key={label} href={href} className="snav-item">
+                <Icon size={16} strokeWidth={1.8} style={{ marginRight: 8, flexShrink: 0 }} />
+                {label}
+              </a>
             ))}
           </nav>
 
@@ -44,7 +84,10 @@ export default function SellerSettings() {
                   <span>{profile.storeName[0]}</span>
                 </div>
                 <div>
-                  <button className="btn btn-outline btn-sm">Upload Logo</button>
+                  <button className="btn btn-outline btn-sm">
+                    <Upload size={14} style={{ marginRight: 6 }} />
+                    Upload Logo
+                  </button>
                   <p className="hint">Recommended: 200×200px PNG or JPG</p>
                 </div>
               </div>
@@ -73,17 +116,14 @@ export default function SellerSettings() {
               <h3>Notifications</h3>
               <div className="divider" />
               <div className="notif-list">
-                {[
-                  ['newOrder', 'New Order Received', 'Get notified when a customer places an order'],
-                  ['lowStock', 'Low Stock Alert', 'Alert when a product has fewer than 10 items'],
-                  ['payment', 'Payment Settled', 'Notify when payment is transferred to your account'],
-                  ['review', 'New Review Posted', 'When a buyer leaves a review on your product'],
-                  ['promo', 'Promotional Updates', 'ThreadCo platform news and offers'],
-                ].map(([key, title, sub]) => (
+                {NOTIF_ITEMS.map(({ key, Icon, title, sub }) => (
                   <div key={key} className="notif-item">
-                    <div>
-                      <strong>{title}</strong>
-                      <p>{sub}</p>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                      <Icon size={18} strokeWidth={1.6} style={{ color: 'var(--mid)', marginTop: 2, flexShrink: 0 }} />
+                      <div>
+                        <strong>{title}</strong>
+                        <p>{sub}</p>
+                      </div>
                     </div>
                     <button className={`toggle-btn ${notifs[key] ? 'on' : ''}`} onClick={() => setN(key)}>
                       <span className="toggle-knob" />
@@ -110,7 +150,10 @@ export default function SellerSettings() {
                   <strong>Two-Factor Authentication</strong>
                   <p className="hint">Add an extra layer of security to your account</p>
                 </div>
-                <button className="btn btn-outline btn-sm">Enable 2FA</button>
+                <button className="btn btn-outline btn-sm">
+                  <Shield size={14} style={{ marginRight: 6 }} />
+                  Enable 2FA
+                </button>
               </div>
             </div>
 
@@ -129,7 +172,8 @@ export default function SellerSettings() {
                 </select>
               </div>
               <div className="grid-2">
-                <div className="field"><label>Processing Time</label>
+                <div className="field">
+                  <label>Processing Time</label>
                   <select>
                     <option>Same day</option>
                     <option>1 business day</option>
@@ -137,11 +181,16 @@ export default function SellerSettings() {
                     <option>3-5 business days</option>
                   </select>
                 </div>
-                <div className="field"><label>Free Shipping Threshold (₹)</label><input type="number" defaultValue="599" /></div>
+                <div className="field">
+                  <label>Free Shipping Threshold (₹)</label>
+                  <input type="number" defaultValue="599" />
+                </div>
               </div>
-              <button className="btn btn-primary" onClick={() => toast('Shipping settings saved!', 'success')}>Save Settings</button>
+              <button className="btn btn-primary" onClick={() => toast('Shipping settings saved!', 'success')}>
+                <Truck size={14} style={{ marginRight: 6 }} />
+                Save Settings
+              </button>
             </div>
-
           </div>
         </div>
       </div>

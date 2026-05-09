@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useApp } from '../../context/AppContext'
 import { PRODUCTS, CATEGORIES, SIZES } from '../../data/products'
+import { ImagePlus, Lightbulb, Weight, Box } from 'lucide-react'
 import './AddProduct.css'
 
 export default function AddProduct() {
@@ -28,12 +29,15 @@ export default function AddProduct() {
 
   const toggleSize = (s) => setForm(f => ({
     ...f,
-    sizes: f.sizes.includes(s) ? f.sizes.filter(x => x !== s) : [...f.sizes, s]
+    sizes: f.sizes.includes(s) ? f.sizes.filter(x => x !== s) : [...f.sizes, s],
   }))
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!form.name || !form.price || !form.category) { toast('Please fill required fields', 'error'); return }
+    if (!form.name || !form.price || !form.category) {
+      toast('Please fill required fields', 'error')
+      return
+    }
     toast(isEdit ? 'Product updated!' : 'Product added!', 'success')
     navigate('/seller/products')
   }
@@ -81,7 +85,7 @@ export default function AddProduct() {
               </div>
 
               <div className="card ap-section">
-                <h3>Pricing & Stock</h3>
+                <h3>Pricing &amp; Stock</h3>
                 <div className="divider" />
                 <div className="grid-3">
                   <div className="field">
@@ -99,7 +103,8 @@ export default function AddProduct() {
                 </div>
                 {form.price && form.mrp && +form.mrp > +form.price && (
                   <div className="disc-preview">
-                    💡 Discount: <strong>{Math.round((1 - form.price / form.mrp) * 100)}% off</strong>
+                    <Lightbulb size={14} style={{ marginRight: 6, color: '#f59e0b', verticalAlign: 'middle' }} />
+                    Discount: <strong>{Math.round((1 - form.price / form.mrp) * 100)}% off</strong>
                   </div>
                 )}
               </div>
@@ -110,24 +115,34 @@ export default function AddProduct() {
                 <p className="ap-hint">Select all sizes you have in stock</p>
                 <div className="sizes-picker">
                   {SIZES.map(s => (
-                    <button key={s} type="button"
+                    <button
+                      key={s}
+                      type="button"
                       className={`size-pick-btn ${form.sizes.includes(s) ? 'active' : ''}`}
-                      onClick={() => toggleSize(s)}>{s}</button>
+                      onClick={() => toggleSize(s)}
+                    >
+                      {s}
+                    </button>
                   ))}
                 </div>
                 <div className="divider" />
                 <p className="ap-hint">For trousers/jeans, add waist sizes:</p>
                 <div className="sizes-picker">
-                  {['28','30','32','34','36','38','40'].map(s => (
-                    <button key={s} type="button"
+                  {['28', '30', '32', '34', '36', '38', '40'].map(s => (
+                    <button
+                      key={s}
+                      type="button"
                       className={`size-pick-btn ${form.sizes.includes(s) ? 'active' : ''}`}
-                      onClick={() => toggleSize(s)}>{s}</button>
+                      onClick={() => toggleSize(s)}
+                    >
+                      {s}
+                    </button>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Right: Image upload + preview */}
+            {/* Right: Image upload + Shipping */}
             <div className="ap-sidebar">
               <div className="card ap-section">
                 <h3>Product Images</h3>
@@ -137,29 +152,51 @@ export default function AddProduct() {
                     <img src={imgPreview} alt="Preview" className="img-preview" />
                   ) : (
                     <div className="img-placeholder">
-                      <span>📷</span>
+                      <ImagePlus size={32} strokeWidth={1.4} color="var(--light)" />
                       <p>Click to upload</p>
                       <small>JPEG, PNG, WebP – Max 5MB</small>
                     </div>
                   )}
                 </div>
-                <input id="img-input" type="file" accept="image/*" style={{display:'none'}}
+                <input
+                  id="img-input"
+                  type="file"
+                  accept="image/*"
+                  style={{ display: 'none' }}
                   onChange={e => {
                     const file = e.target.files[0]
                     if (file) setImgPreview(URL.createObjectURL(file))
-                  }} />
-                <button type="button" className="btn btn-outline btn-sm btn-full" style={{marginTop:10}}
-                  onClick={() => document.getElementById('img-input').click()}>
+                  }}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline btn-sm btn-full"
+                  style={{ marginTop: 10 }}
+                  onClick={() => document.getElementById('img-input').click()}
+                >
+                  <ImagePlus size={14} style={{ marginRight: 6 }} />
                   {imgPreview ? 'Change Image' : 'Upload Image'}
                 </button>
-                <p className="ap-hint" style={{marginTop:8}}>You can add up to 5 images for your product.</p>
+                <p className="ap-hint" style={{ marginTop: 8 }}>You can add up to 5 images for your product.</p>
               </div>
 
               <div className="card ap-section">
                 <h3>Shipping Info</h3>
                 <div className="divider" />
-                <div className="field"><label>Weight (grams)</label><input type="number" placeholder="300" /></div>
-                <div className="field"><label>Package Dimensions</label><input placeholder="L × W × H (cm)" /></div>
+                <div className="field">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Weight size={14} />
+                    Weight (grams)
+                  </label>
+                  <input type="number" placeholder="300" />
+                </div>
+                <div className="field">
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <Box size={14} />
+                    Package Dimensions
+                  </label>
+                  <input placeholder="L × W × H (cm)" />
+                </div>
                 <p className="ap-hint">Accurate dimensions help calculate shipping cost.</p>
               </div>
             </div>
@@ -167,7 +204,9 @@ export default function AddProduct() {
 
           <div className="ap-submit-bar">
             <button type="button" className="btn btn-outline" onClick={() => navigate('/seller/products')}>Cancel</button>
-            <button type="submit" className="btn btn-accent btn-lg">{isEdit ? ' Save Changes' : ' List Product'}</button>
+            <button type="submit" className="btn btn-accent btn-lg">
+              {isEdit ? 'Save Changes' : 'List Product'}
+            </button>
           </div>
         </form>
       </div>
