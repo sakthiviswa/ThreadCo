@@ -1,0 +1,34 @@
+.shop-page { padding: 30px 0 60px; }
+.shop-layout { display: grid; grid-template-columns: 240px 1fr; gap: 30px; align-items: start; }
+
+/* Filters */
+.filters { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; position: sticky; top: calc(var(--nav-h) + 20px); }
+.filter-section { margin-bottom: 24px; }
+.filter-section h3 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 12px; color: var(--mid); }
+.filter-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.filter-list button { width: 100%; text-align: left; padding: 7px 10px; border-radius: 5px; font-size: 14px; color: var(--mid); transition: all .15s; background: none; border: none; cursor: pointer; }
+.filter-list button:hover { background: var(--cream); color: var(--charcoal); }
+.filter-list button.active { background: var(--charcoal); color: var(--white); font-weight: 600; }
+
+.price-inputs { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.price-inputs input { width: 80px; padding: 6px 10px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; }
+.range-slider { width: 100%; accent-color: var(--charcoal); }
+.price-label { font-size: 13px; color: var(--mid); margin-top: 5px; }
+
+.size-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+.size-btn { padding: 7px 4px; border: 1.5px solid var(--border); border-radius: 4px; font-size: 12px; font-weight: 600; transition: all .15s; background: none; cursor: pointer; }
+.size-btn:hover { border-color: var(--charcoal); }
+.size-btn.active { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
+
+/* Top bar */
+.shop-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+.results-info { font-size: 14px; color: var(--mid); }
+.results-info strong { color: var(--charcoal); font-size: 16px; font-family: var(--font-head); }
+.sort-wrap { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.sort-wrap select { padding: 7px 10px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 14px; outline: none; }
+
+.empty-state { text-align: center; padding: 80px 20px; color: var(--mid); }
+.empty-state span { font-size: 48px; display: block; margin-bottom: 12px; }
+.empty-state h3 { font-size: 20px; margin-bottom: 6px; color: var(--charcoal); }
+
+@media (max-width: 900px) { .shop-layout { grid-template-columns: 1fr; } .filters { position: static; } }

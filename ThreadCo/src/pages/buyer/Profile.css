@@ -1,0 +1,37 @@
+.profile-page { padding: 24px 0 60px; }
+.profile-layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; align-items: start; }
+
+.profile-sidebar { display: flex; flex-direction: column; gap: 16px; position: sticky; top: calc(var(--nav-h) + 20px); }
+.profile-avatar-card { padding: 24px; text-align: center; }
+.big-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--charcoal); color: #fff; font-size: 28px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-family: var(--font-head); }
+.profile-avatar-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.profile-avatar-card p { font-size: 13px; color: var(--mid); margin-bottom: 10px; }
+
+.profile-nav { padding: 8px; }
+.pnav-item { padding: 10px 14px; font-size: 14px; font-weight: 500; color: var(--mid); border-radius: 6px; cursor: pointer; transition: all .15s; }
+.pnav-item:hover { background: var(--cream); color: var(--charcoal); }
+
+.profile-content { display: flex; flex-direction: column; gap: 20px; }
+.profile-section { padding: 24px; }
+.profile-section h3 { font-family: var(--font-head); font-size: 19px; margin-bottom: 0; }
+
+.gender-opts { display: flex; gap: 10px; flex-wrap: wrap; }
+.gender-opt { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all .15s; }
+.gender-opt input { display: none; }
+.gender-opt.active { border-color: var(--charcoal); background: var(--charcoal); color: #fff; }
+
+.address-card { padding: 16px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 12px; }
+.addr-top { display: flex; gap: 8px; margin-bottom: 10px; }
+.addr-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+.addr-detail { font-size: 13px; color: var(--mid); margin-bottom: 10px; }
+.addr-actions { display: flex; gap: 6px; }
+
+.acc-setting-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); gap: 20px; }
+.acc-setting-row:last-child { border-bottom: none; }
+.acc-setting-row strong { display: block; font-size: 14px; margin-bottom: 3px; }
+.acc-setting-row .hint { font-size: 12px; color: var(--light); }
+.danger-zone strong { color: var(--red); }
+.section-hd-small { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+.section-hd-small h3 { font-family: var(--font-head); font-size: 19px; }
+
+@media (max-width: 900px) { .profile-layout { grid-template-columns: 1fr; } .profile-sidebar { position: static; } }

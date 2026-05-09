@@ -1,0 +1,30 @@
+.payments-page { padding: 24px 0 60px; }
+.payments-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+.payments-main { display: flex; flex-direction: column; gap: 20px; }
+
+.wallet-card { background: var(--charcoal); color: var(--white); border-radius: 10px; padding: 24px; display: flex; align-items: center; gap: 0; }
+.wallet-item { flex: 1; display: flex; flex-direction: column; gap: 8px; align-items: center; text-align: center; }
+.wallet-label { font-size: 12px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+.wallet-val { font-size: 22px; font-weight: 800; font-family: var(--font-head); }
+.wallet-val.big { font-size: 30px; }
+.wallet-divider { width: 1px; height: 60px; background: rgba(255,255,255,.15); flex-shrink: 0; margin: 0 24px; }
+
+.linked-bank { display: flex; align-items: center; gap: 12px; background: var(--cream); padding: 14px; border-radius: 8px; margin-bottom: 14px; }
+.linked-bank span { font-size: 22px; flex-shrink: 0; }
+.linked-bank strong { display: block; font-size: 14px; margin-bottom: 3px; }
+.linked-bank p { font-size: 12px; color: var(--mid); margin: 0; }
+
+.fee-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.fee-row:last-child { border-bottom: none; }
+.fee-row span { color: var(--mid); }
+.fee-row strong { font-size: 13px; }
+
+/* reuse */
+.sp-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.sp-table th { text-align: left; padding: 10px 14px; background: var(--cream); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--mid); border-bottom: 1px solid var(--border); white-space: nowrap; }
+.sp-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.sp-table tr:last-child td { border-bottom: none; }
+.section-hd-small { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.section-hd-small h3 { font-family: var(--font-head); font-size: 17px; }
+
+@media (max-width: 1000px) { .payments-layout { grid-template-columns: 1fr; } .wallet-card { flex-direction: column; } .wallet-divider { width: 60px; height: 1px; } }

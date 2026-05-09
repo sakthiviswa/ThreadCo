@@ -1,0 +1,24 @@
+.auth-page { min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+.auth-card { width: 100%; max-width: 460px; padding: 36px; }
+.auth-logo { font-family: var(--font-head); font-size: 22px; text-align: center; margin-bottom: 20px; color: var(--charcoal); }
+.auth-card h2 { font-family: var(--font-head); font-size: 26px; text-align: center; margin-bottom: 6px; }
+.auth-sub { text-align: center; color: var(--mid); font-size: 14px; margin-bottom: 24px; }
+
+.role-tabs { display: flex; border: 1.5px solid var(--border); border-radius: 7px; overflow: hidden; margin-bottom: 22px; }
+.role-tab { flex: 1; padding: 10px; font-size: 14px; font-weight: 600; cursor: pointer; background: none; border: none; color: var(--mid); transition: all .15s; }
+.role-tab.active { background: var(--charcoal); color: #fff; }
+
+.auth-forgot { text-align: right; margin-top: -10px; margin-bottom: 16px; }
+.auth-forgot a { font-size: 13px; color: var(--accent); }
+
+.auth-divider { position: relative; text-align: center; margin: 20px 0; }
+.auth-divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
+.auth-divider span { position: relative; background: var(--white); padding: 0 12px; font-size: 13px; color: var(--light); }
+
+.social-auth { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.social-auth .btn { justify-content: center; }
+
+.auth-switch { text-align: center; font-size: 14px; color: var(--mid); margin-top: 16px; }
+.auth-switch a { color: var(--accent); font-weight: 600; }
+.terms-note { font-size: 12px; color: var(--mid); margin-bottom: 16px; line-height: 1.5; }
+.terms-note a { color: var(--accent); }

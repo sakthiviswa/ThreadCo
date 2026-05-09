@@ -1,0 +1,6 @@
+/* SellerOrders.css */
+.seller-orders-page { padding: 24px 0 60px; }
+.order-summary-pills { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.order-pill { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; display: flex; flex-direction: column; gap: 4px; min-width: 120px; }
+.order-pill span { font-size: 13px; color: var(--mid); }
+.order-pill strong { font-size: 22px; font-family: var(--font-head); }
