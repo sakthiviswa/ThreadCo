@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "ThreadCo/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "ThreadCo/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/ThreadCo/dist/$1"
+    }
+  ]
+}
